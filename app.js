@@ -25,11 +25,24 @@ app.use(views(__dirname + '/views', {
 }))
 
 // logger
+// app.use(async (ctx, next) => {
+//   const start = new Date()
+//   await next()
+//   const ms = new Date() - start
+//   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
+// })
+const logsUtil = require('./utils/logs.js');
 app.use(async (ctx, next) => {
   const start = new Date()
-  await next()
-  const ms = new Date() - start
-  console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
+  let intervals
+  try {
+    await next()
+    intervals = new Date() - start
+    logsUtil.logResponse(ctx, intervals);
+  } catch(error) {
+    intervals = new Date() - start
+    logsUtil.logResponse(ctx, error, intervals);
+  }
 })
 
 // routes
