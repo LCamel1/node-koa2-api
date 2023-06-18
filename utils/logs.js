@@ -8,7 +8,7 @@ var errorLogger = log4js.getLogger("errorLogger");
 var handleLogger = log4js.getLogger("handleLogger");
 var consoleLogger = log4js.getLogger();
 
-// 格式化日志文本
+// 各种日志格式： 普通日志、请求日志、响应日志、操作日志、错误日志
 var formatText = {
     info: function(info) {
         var logText = new String();

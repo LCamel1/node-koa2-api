@@ -5,6 +5,8 @@ const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
+const dotenv = require('dotenv')
+dotenv.config();
 
 const index = require('./routes/index')
 const users = require('./routes/users')
@@ -41,7 +43,7 @@ app.use(async (ctx, next) => {
     logsUtil.logResponse(ctx, intervals);
   } catch(error) {
     intervals = new Date() - start
-    logsUtil.logResponse(ctx, error, intervals);
+    logsUtil.logError(ctx, error, intervals);
   }
 })
 
